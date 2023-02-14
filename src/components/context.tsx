@@ -84,11 +84,8 @@ export function ContextProvider({ children }) {
     const query = queryString.parse(window.location.search)
 
     if (query.debug) {
-
-      const update = getStateUpdate()
-      update.meta.debug = true
-
-      setState(update)
+      state['meta'].debug = true
+      setState(state)
     }
 
   }, [state, setState])

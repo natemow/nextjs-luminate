@@ -12,8 +12,11 @@ export function Form(): ReactElement {
   const { state } = useContext(Context)
 
   const getDebug = () => {
-    // if (state['meta'].debug) {} else { return (<></>) }
-    return <pre>{JSON.stringify(state, null, 2)}</pre>
+    if (state['meta'].debug) {
+      return (<pre>{JSON.stringify(state, null, 2)}</pre>)
+    } else {
+      return (<></>)
+    }
   }
 
   return (
