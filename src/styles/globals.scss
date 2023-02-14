@@ -1,0 +1,69 @@
+
+$spacing-y: 1.5em;
+$button-bg: #eee;
+$input-border-color: #ddd;
+$ts: .25s;        // transition speed
+$te: ease-in-out; // transition ease
+
+:root {
+  --active-bg: #025993;
+  --active-hover: #75cbc866;
+  --active-color: #fff;
+
+  --button-bg: #{$button-bg};
+  --button-color: #222;
+
+  --input-bg: #fff;
+  --input-border-color: #{$input-border-color};
+  --input-border: solid 1px var(--input-border-color);
+  --input-border-radius: 5px;
+  --input-checkbox-size: 20px;
+
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  margin: 0;
+  padding: 0;
+  background: var(--input-bg);
+}
+
+pre {
+  font-family: monospace;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.sr-only {
+  display: none;
+}
+
+.-inline {
+  display: flex;
+}
+
+.donation {
+  width: 800px;
+  margin: $spacing-y auto;
+}
+
+
+
+[data-section] {
+  padding: 0 0 $spacing-y 0;
+}
+[data-toggle='true'] {
+  display: none;
+}
+[data-toggle='false'] {
+  display: block;
+}
+
+@import 'input';
+@import 'frequency';
+@import 'levels';
+@import 'payment';
+@import 'tribute';
