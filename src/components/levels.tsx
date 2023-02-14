@@ -28,7 +28,7 @@ export const getLevelByAmount = (state: object): object|boolean => {
 export function Levels(): ReactElement {
 
   // @ts-ignore
-  const { state, setState, getStateUpdate, loading } = useContext(Context)
+  const { state, setState, getStateUpdate } = useContext(Context)
 
   let inputCustom
 
@@ -59,17 +59,9 @@ export function Levels(): ReactElement {
   }
 
   // Render.
-  if (loading) {
-    return (
-      <section data-section="levels">
-        <p>Loading...</p>
-      </section>
-    )
+  const levels = state['meta'].levels
 
-  }
-  else {
-    const levels = state['meta'].levels
-
+  if (levels) {
     let inputs = [],
         userSpecified = null
 
@@ -106,5 +98,7 @@ export function Levels(): ReactElement {
       </section>
     )
   }
+
+  return  (<></>)
 
 }

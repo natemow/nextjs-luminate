@@ -5,6 +5,7 @@ export const
   config = {
     org: process.env.NEXT_PUBLIC_ORGANIZATION,
     processingFee: parseFloat(process.env.NEXT_PUBLIC_PROCESSING_FEE),
+    helpInfo: process.env.NEXT_PUBLIC_HELPINFO
   },
   API = new Luminate({
     key: process.env.NEXT_PUBLIC_API_KEY,

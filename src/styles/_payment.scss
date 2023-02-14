@@ -1,4 +1,13 @@
 
-[data-section='payment']:not([data-toggle='true']) {
-  display: flex;
+[data-section='payment'] {
+
+  .-label {
+    margin-right: 1em;
+  }
+
+  &.-border {
+    padding-top: $spacing-y;
+    padding-bottom: $spacing-y;
+    margin: 0 0 $spacing-y 0;
+  }
 }

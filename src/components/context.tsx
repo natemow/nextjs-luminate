@@ -21,7 +21,6 @@ export function ContextProvider({ children }) {
       debug: false,
       frequency: 'once',
       levels: [],
-      method: 'card',
       fee: false,
       amount: 0,
       amountWithFee: 0

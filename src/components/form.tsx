@@ -1,5 +1,6 @@
 
 import { ReactElement, useContext } from 'react'
+import { config } from '@/lib/utility'
 import Context from '@/components/context'
 import { Frequency } from '@/components/frequency'
 import { Levels } from '@/components/levels'
@@ -25,6 +26,9 @@ export function Form(): ReactElement {
       <Levels />
       <Tribute />
       <Payment />
+
+      <p className="help" dangerouslySetInnerHTML={{ __html: config.helpInfo }}></p>
+
       {getDebug()}
     </form>
   )

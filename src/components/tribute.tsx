@@ -115,19 +115,10 @@ export function Tribute(): ReactElement {
         </div>
       </section>
 
-      <section data-section="tribute" data-toggle={!tribute}>
+      <fieldset data-section="tribute" data-toggle={!tribute}>
+        <legend>Tributee Information</legend>
 
-        <div className="input">
-          <label htmlFor="notify">Would you like to notify someone of your gift?</label>
-          <select id="notify" onChange={handleChangeNotify}>
-            <option value="">No</option>
-            <option value="ecard">Yes, by eCard</option>
-            <option value="mail">Yes, by Mail</option>
-          </select>
-        </div>
-
-        <div className="tribute">
-          <h2>Tributee Information</h2>
+        <div className="tribute -border">
           <div className="-inline">
             <div className="input -offset-label">
               <label htmlFor="tribute.type">Tribute type</label>
@@ -145,17 +136,29 @@ export function Tribute(): ReactElement {
               <input onInput={handleChangeTributee} name="tribute.honoree.name.last" type="text" />
             </div>
           </div>
+
+          <div className="notify">
+            <div className="input">
+              <label htmlFor="notify">Would you like to notify someone of your gift?</label>
+              <select id="notify" onChange={handleChangeNotify}>
+                <option value="">No</option>
+                <option value="ecard">Yes, by eCard</option>
+                <option value="mail">Yes, by Mail</option>
+              </select>
+            </div>
+
+            <section data-section="ecard" data-toggle={notify !== 'ecard'}>
+              <p>TODO: {notify}</p>
+            </section>
+
+            <section data-section="mail" data-toggle={notify !== 'mail'}>
+              <p>TODO: {notify}</p>
+            </section>
+          </div>
+
         </div>
 
-        <section data-section="ecard" data-toggle={notify !== 'ecard'}>
-          <p>TODO: {notify}</p>
-        </section>
-
-        <section data-section="mail" data-toggle={notify !== 'mail'}>
-          <p>TODO: {notify}</p>
-        </section>
-
-      </section>
+      </fieldset>
     </>
   )
 }

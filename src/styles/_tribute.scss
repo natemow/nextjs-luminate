@@ -1,7 +1,18 @@
 
+[data-section='tribute']:not([data-toggle]) {
+
+}
+
 .tribute {
-  margin: $spacing-y 0;
-  padding: 1em $spacing-y;
-  border: var(--input-border);
-  border-radius: var(--input-border-radius);
+  padding-top: $spacing-y;
+  padding-bottom: $spacing-y;
+}
+
+.notify {
+  margin-top: $spacing-y;
+
+  [data-section='ecard'],
+  [data-section='mail'] {
+    padding-bottom: 0;
+  }
 }

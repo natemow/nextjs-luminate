@@ -84,12 +84,13 @@ export function Payment(): ReactElement {
 
   // Set display amount and disabled state.
   const amount = checkedFee ? state['meta'].amountWithFee : state['meta'].amount,
-        disabled = !state['donation'].level_id || !state['meta'].amount
+        disabled = !state['donation'].level_id || !state['meta'].amount || !state['meta'].method
 
   // Render.
   return (
     <>
-      <section data-section="payment" data-toggle={disabled}>
+      <section data-section="payment" className="-inline">
+        <label className="-label">Pay with</label>
         <div className="input -radio">
           <label htmlFor="method-1">Credit card
             <input id="method-1" type="radio" name="method" value="card" checked={method === 'card'} onChange={handleChangeMethod} />
@@ -104,9 +105,10 @@ export function Payment(): ReactElement {
         </div>
       </section>
 
-      <section data-section="payment" data-toggle={disabled}>
-        TODO: {method} payment goes here
-      </section>
+      <fieldset data-section="payment" data-toggle={disabled} className="-border">
+        <legend>Payment Information</legend>
+        <p>TODO: {method} payment goes here</p>
+      </fieldset>
 
       <section data-section="cookie" data-toggle={disabled}>
         <div className="input -checkbox">
