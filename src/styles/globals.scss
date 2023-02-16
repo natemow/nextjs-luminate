@@ -13,6 +13,8 @@ $te: ease-in-out; // transition ease
   --button-bg: #{$button-bg};
   --button-color: #222;
 
+  --help-color: #666;
+
   --input-bg: #fff;
   --input-border-color: #{$input-border-color};
   --input-border: solid 1px var(--input-border-color);
@@ -50,6 +52,7 @@ p {
 
 a {
   color: var(--active-bg);
+  text-decoration: none;
 }
 
 .sr-only {
@@ -60,6 +63,13 @@ a {
   display: flex;
 }
 
+ul.-inline {
+  @extend .-inline;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .-border {
   padding: 1em $spacing-y;
   border: var(--input-border);
@@ -68,7 +78,7 @@ a {
 
 .help {
   font-size: 14px;
-  color: #666;
+  color: var(--help-color);
 }
 
 .donation {
@@ -94,6 +104,7 @@ a {
 }
 
 @import 'input';
+@import 'locale';
 @import 'frequency';
 @import 'levels';
 @import 'payment';

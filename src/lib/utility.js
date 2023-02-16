@@ -3,9 +3,7 @@ import Luminate from '@/lib/Luminate'
 
 export const
   config = {
-    org: process.env.NEXT_PUBLIC_ORGANIZATION,
-    processingFee: parseFloat(process.env.NEXT_PUBLIC_PROCESSING_FEE),
-    helpInfo: process.env.NEXT_PUBLIC_HELPINFO
+    processingFee: parseFloat(process.env.NEXT_PUBLIC_PROCESSING_FEE)
   },
   API = new Luminate({
     key: process.env.NEXT_PUBLIC_API_KEY,

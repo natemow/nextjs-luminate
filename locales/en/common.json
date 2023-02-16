@@ -1,0 +1,28 @@
+{
+  "organization":       "The Non-profit Organization",
+  "frequencyOnce":      "One-time gift",
+  "frequencySustain":   "Monthly gift",
+  "headingTribute":     "Tributee Information",
+  "headingPayment":     "Payment Information",
+
+  "helpInfo":           "If you are having issues with processing your gift, you may need to<br>update your browser. For assistance, please call <a href=tel:8001234567>800-123-4567</a>.",
+
+  "labelTribute":       "Give in honor or memory of someone",
+  "labelTributeType":   "Tribute type",
+  "labelTributeFname":  "First name",
+  "labelTributeLname":  "Last name",
+  "labelTributeNotify": "Would you like to notify someone of your gift?",
+
+  "labelPayment":       "Pay with",
+  "labelPaymentFee":    "I want 100% of my donation to go to the {{organization}}. I will add {{amount}} to my donation to cover credit card transaction fees.",
+  "labelPaymentButton": "Donate {{amount}}",
+  "labelCookie":        "Remember me",
+
+  "optHonor":           "In Honor of",
+  "optMemory":          "In Memory of",
+  "optNo":              "No",
+  "optEcard":           "Yes, by eCard",
+  "optMail":            "Yes, by mail",
+  "optCard":            "Credit card",
+  "optPaypal":          "PayPal"
+}

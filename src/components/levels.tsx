@@ -1,5 +1,6 @@
 
 import { FormEvent, ReactElement, useContext } from 'react'
+import useTranslation from 'next-translate/useTranslation'
 import { roundCurrency, formatCurrency, getProcessingFee } from '@/lib/utility'
 import Context from '@/components/context'
 
@@ -93,7 +94,7 @@ export function Levels(): ReactElement {
     }
 
     return (
-      <section data-section="levels">
+      <section data-section="levels" className="-inline">
         {inputs}
       </section>
     )

@@ -1,0 +1,22 @@
+
+[data-section="locale"] {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+
+  li {
+    margin: 0 .5em 0 0;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  a {
+    color: var(--help-color);
+
+    &.-active {
+      color: var(--active-bg);
+    }
+  }
+}

@@ -1,9 +1,12 @@
 
 import { FormEvent, ReactElement, useContext, useState } from 'react'
+import useTranslation from 'next-translate/useTranslation'
 import { Forms } from '@/lib/utility'
 import Context from '@/components/context'
 
 export function Tribute(): ReactElement {
+
+  const { t } = useTranslation('common')
 
   // @ts-ignore
   const { state, setState, getStateUpdate, setLoading } = useContext(Context)
@@ -108,7 +111,7 @@ export function Tribute(): ReactElement {
     <>
       <section data-section="tribute">
         <div className="input -checkbox">
-          <label htmlFor="tribute">Give in honor or memory of someone
+          <label htmlFor="tribute">{t('labelTribute')}
             <input id="tribute" type="checkbox" checked={tribute} onChange={handleChangeTribute} />
             <span />
           </label>
@@ -116,34 +119,34 @@ export function Tribute(): ReactElement {
       </section>
 
       <fieldset data-section="tribute" data-toggle={!tribute}>
-        <legend>Tributee Information</legend>
+        <legend>{t('headingTribute')}</legend>
 
         <div className="tribute -border">
           <div className="-inline">
             <div className="input -offset-label">
-              <label htmlFor="tribute.type">Tribute type</label>
+              <label htmlFor="tribute.type">{t('labelTributeType')}</label>
               <select onChange={handleChangeTributee} name="tribute.type">
-                <option value="tribute">In Honor of</option>
-                <option value="memorial">In Memory of</option>
+                <option value="tribute">{t('optHonor')}</option>
+                <option value="memorial">{t('optMemory')}</option>
               </select>
             </div>
             <div className="input">
-              <label htmlFor="tribute.honoree.name.first">First name</label>
+              <label htmlFor="tribute.honoree.name.first">{t('labelTributeFname')}</label>
               <input onInput={handleChangeTributee} name="tribute.honoree.name.first" type="text" />
             </div>
             <div className="input">
-              <label htmlFor="tribute.honoree.name.last">Last name</label>
+              <label htmlFor="tribute.honoree.name.last">{t('labelTributeLname')}</label>
               <input onInput={handleChangeTributee} name="tribute.honoree.name.last" type="text" />
             </div>
           </div>
 
           <div className="notify">
             <div className="input">
-              <label htmlFor="notify">Would you like to notify someone of your gift?</label>
+              <label htmlFor="notify">{t('labelTributeNotify')}</label>
               <select id="notify" onChange={handleChangeNotify}>
-                <option value="">No</option>
-                <option value="ecard">Yes, by eCard</option>
-                <option value="mail">Yes, by Mail</option>
+                <option value="">{t('optNo')}</option>
+                <option value="ecard">{t('optEcard')}</option>
+                <option value="mail">{t('optMail')}</option>
               </select>
             </div>
 
@@ -155,7 +158,6 @@ export function Tribute(): ReactElement {
               <p>TODO: {notify}</p>
             </section>
           </div>
-
         </div>
 
       </fieldset>

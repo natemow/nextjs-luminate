@@ -1,9 +1,12 @@
 
 import { FormEvent, ReactElement, useContext, useState } from 'react'
-import { config, API, formatCurrency, getProcessingFee } from '@/lib/utility';
+import useTranslation from 'next-translate/useTranslation'
+import { API, formatCurrency, getProcessingFee } from '@/lib/utility';
 import Context from '@/components/context'
 
 export function Payment(): ReactElement {
+
+  const { t } = useTranslation('common')
 
   // @ts-ignore
   const { state, setState, getStateUpdate } = useContext(Context)
@@ -90,15 +93,15 @@ export function Payment(): ReactElement {
   return (
     <>
       <section data-section="payment" className="-inline">
-        <label className="-label">Pay with</label>
+        <label className="-label">{t('labelPayment')}</label>
         <div className="input -radio">
-          <label htmlFor="method-1">Credit card
+          <label htmlFor="method-1">{t('optCard')}
             <input id="method-1" type="radio" name="method" value="card" checked={method === 'card'} onChange={handleChangeMethod} />
             <span />
           </label>
         </div>
         <div className="input -radio">
-          <label htmlFor="method-2">PayPal
+          <label htmlFor="method-2">{t('optPaypal')}
             <input id="method-2" type="radio" name="method" value="paypal" checked={method === 'paypal'} onChange={handleChangeMethod} />
             <span />
           </label>
@@ -106,13 +109,13 @@ export function Payment(): ReactElement {
       </section>
 
       <fieldset data-section="payment" data-toggle={disabled} className="-border">
-        <legend>Payment Information</legend>
+        <legend>{t('headingPayment')}</legend>
         <p>TODO: {method} payment goes here</p>
       </fieldset>
 
       <section data-section="cookie" data-toggle={disabled}>
         <div className="input -checkbox">
-          <label htmlFor="cookie">Remember me
+          <label htmlFor="cookie">{t('labelCookie')}
             <input id="cookie" type="checkbox" checked={checkedCookie} onChange={handleChangeCookie} />
             <span />
           </label>
@@ -121,7 +124,11 @@ export function Payment(): ReactElement {
 
       <section data-section="fee" data-toggle={disabled}>
         <div className="input -checkbox">
-          <label htmlFor="fee">I want 100% of my donation to go to the {config.org}. I will add {formatCurrency(getProcessingFee(state['meta'].amount))} to my donation to cover credit card transaction fees.
+          <label htmlFor="fee">
+            {t('labelPaymentFee', {
+              'organization': t('organization'),
+              'amount': formatCurrency(getProcessingFee(state['meta'].amount))
+            })}
             <input id="fee" type="checkbox" checked={checkedFee} onChange={handleChangeFee} />
             <span />
           </label>
@@ -130,7 +137,9 @@ export function Payment(): ReactElement {
 
       <section data-section="action" data-toggle={disabled}>
         <div className="input">
-          <button onClick={handleClick} disabled={disabled} className={!disabled ? '-active' : ''}>Donate {formatCurrency(amount)}</button>
+          <button onClick={handleClick} disabled={disabled} className={!disabled ? '-active' : ''}>
+            {t('labelPaymentButton', { 'amount': formatCurrency(amount)})}
+          </button>
         </div>
       </section>
     </>

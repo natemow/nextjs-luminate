@@ -1,0 +1,28 @@
+{
+  "organization":       "La Organización sin Fines de Lucro",
+  "frequencyOnce":      "Regalo de una sola vez",
+  "frequencySustain":   "Regalo mensual",
+  "headingTribute":     "Información del tributario",
+  "headingPayment":     "Información del pago",
+
+  "helpInfo":           "Si tiene problemas para procesar su regalo, es posible que deba actualizar<br>su navegador. Para obtener ayuda, por favor llame <a href=tel:8001234567>800-123-4567</a>.",
+
+  "labelTribute":       "Dar en honor o memoria de alguien",
+  "labelTributeType":   "Tipo de tributo",
+  "labelTributeFname":  "Nombre de pila",
+  "labelTributeLname":  "Apellido",
+  "labelTributeNotify": "¿Te gustaría avisar a alguien de tu regalo?",
+
+  "labelPayment":       "Pagar con",
+  "labelPaymentFee":    "Quiero que el 100 % de mi donación vaya a la {{organization}}. Agregaré {{amount}} a mi donación para cubrir las tarifas de transacción de la tarjeta de crédito.",
+  "labelPaymentButton": "Donar {{amount}}",
+  "labelCookie":        "Acuérdate de mí",
+
+  "optHonor":           "En honor de",
+  "optMemory":          "En memoria de",
+  "optNo":              "No",
+  "optEcard":           "Sí, por tarjeta electrónica",
+  "optMail":            "Si, por correo",
+  "optCard":            "Tarjeta de crédito",
+  "optPaypal":          "PayPal"
+}

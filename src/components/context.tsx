@@ -1,6 +1,7 @@
 
 import queryString from 'query-string'
 import { createContext, useState, useEffect } from 'react'
+import useTranslation from 'next-translate/useTranslation'
 import { API, Forms, getProcessingFee } from '@/lib/utility'
 import { getLevelByAmount } from '@/components/levels'
 
@@ -8,6 +9,8 @@ const Context = createContext([])
 export default Context
 
 export function ContextProvider({ children }) {
+
+  const { t, lang } = useTranslation('common')
 
   const [loading, setLoading] = useState(true)
 
@@ -19,6 +22,7 @@ export function ContextProvider({ children }) {
     },
     meta: {
       debug: false,
+      locale: lang,
       frequency: 'once',
       levels: [],
       fee: false,
