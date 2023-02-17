@@ -3,6 +3,7 @@ import { FormEvent, ReactElement, useContext, useState } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { Forms } from '@/lib/utility'
 import Context from '@/components/context'
+import { FormText, FormCheckbox, FormSelect } from '@/components/form'
 
 export function Tribute(): ReactElement {
 
@@ -23,7 +24,7 @@ export function Tribute(): ReactElement {
     return update
   }
 
-  // Tribute checkbox change.
+  // Tribute change.
   let [tribute, setTribute] = useState(false)
   const handleChangeTribute = async () => {
     tribute = !tribute
@@ -53,7 +54,7 @@ export function Tribute(): ReactElement {
     setState(update)
   }
 
-  // Notify select change.
+  // Notify change.
   const [notify, setNotify] = useState('')
   const handleChangeNotify = async (e: FormEvent) => {
 
@@ -70,7 +71,7 @@ export function Tribute(): ReactElement {
     setState(update)
   }
 
-  // Tributee input event.
+  // Tributee change.
   const [tributee, setTributee] = useState({})
   const handleChangeTributee = async (e: FormEvent) => {
 
@@ -85,19 +86,25 @@ export function Tribute(): ReactElement {
     setState(update)
   }
 
-  // state['donation']['tribute.notify.name.full'];
-  // state['donation']['tribute.notify.address.street1'];
-  // state['donation']['tribute.notify.address.street2'];
-  // state['donation']['tribute.notify.address.city'];
-  // state['donation']['tribute.notify.address.state'];
-  // state['donation']['tribute.notify.address.zip'];
-  // state['donation']['tribute.notify.address.country'];
-  //
+  // Notification change.
+  const [notification, setNotification] = useState({})
+  const handleChangeNotification = async (e: FormEvent) => {
+
+    const input = e.target as HTMLFormElement
+
+    notification[input.name] = input.value
+    setNotification(notification)
+
+    const update = getStateUpdate()
+    update.donation[input.name] = input.value
+
+    setState(update)
+  }
+
   // state['donation']['ecard.send'];
   // state['donation']['ecard.send_date'];
   // state['donation']['ecard.id'];
-  // state['donation']['ecard.recipients'];
-  // state['donation']['ecard.subject'];
+
   // state['donation']['ecard.message'];
   // state['donation']['ecard.copy_sender'];
   //
@@ -110,12 +117,7 @@ export function Tribute(): ReactElement {
   return (
     <>
       <section data-section="tribute">
-        <div className="input -checkbox">
-          <label htmlFor="tribute">{t('labelTribute')}
-            <input id="tribute" type="checkbox" checked={tribute} onChange={handleChangeTribute} />
-            <span />
-          </label>
-        </div>
+        <FormCheckbox id="tribute" label={t('labelTribute')} callback={handleChangeTribute} checked={tribute} />
       </section>
 
       <fieldset data-section="tribute" data-toggle={!tribute}>
@@ -125,37 +127,42 @@ export function Tribute(): ReactElement {
           <div className="-inline">
             <div className="input -offset-label">
               <label htmlFor="tribute.type">{t('labelTributeType')}</label>
-              <select onChange={handleChangeTributee} name="tribute.type">
+              <select onChange={handleChangeTributee} id="tribute.type" name="tribute.type">
                 <option value="tribute">{t('optHonor')}</option>
                 <option value="memorial">{t('optMemory')}</option>
               </select>
             </div>
-            <div className="input">
-              <label htmlFor="tribute.honoree.name.first">{t('labelTributeFname')}</label>
-              <input onInput={handleChangeTributee} name="tribute.honoree.name.first" type="text" />
-            </div>
-            <div className="input">
-              <label htmlFor="tribute.honoree.name.last">{t('labelTributeLname')}</label>
-              <input onInput={handleChangeTributee} name="tribute.honoree.name.last" type="text" />
-            </div>
+
+            <FormText id="tribute.honoree.name.first" label={t('labelFname')} callback={handleChangeTributee} />
+            <FormText id="tribute.honoree.name.last" label={t('labelLname')} callback={handleChangeTributee} />
           </div>
 
           <div className="notify">
-            <div className="input">
-              <label htmlFor="notify">{t('labelTributeNotify')}</label>
-              <select id="notify" onChange={handleChangeNotify}>
-                <option value="">{t('optNo')}</option>
-                <option value="ecard">{t('optEcard')}</option>
-                <option value="mail">{t('optMail')}</option>
-              </select>
-            </div>
+            <FormSelect id="notify" label={t('labelTributeNotify')} callback={handleChangeNotify} options={[
+              <option key="" value="">{t('optNo')}</option>,
+              <option key="ecard" value="ecard">{t('optEcard')}</option>,
+              <option key="value" value="mail">{t('optMail')}</option>
+            ]} />
 
             <section data-section="ecard" data-toggle={notify !== 'ecard'}>
-              <p>TODO: {notify}</p>
+              <FormText id="ecard.recipients" label={t('labelEcardRecipient')} callback={handleChangeNotification} />
+              <FormText id="ecard.subject" label={t('labelEcardSubject')} callback={handleChangeNotification} />
             </section>
 
             <section data-section="mail" data-toggle={notify !== 'mail'}>
-              <p>TODO: {notify}</p>
+              <FormText id="tribute.notify.name.full" label={t('labelMailName')} callback={handleChangeNotification} />
+              <div className="-inline">
+                <FormText id="tribute.notify.address.street1" label={t('labelAddr1')} callback={handleChangeNotification} />
+                <FormText id="tribute.notify.address.street2" label={t('labelAddr2')} callback={handleChangeNotification} />
+              </div>
+              <div className="-inline">
+                <FormText id="tribute.notify.address.city" label={t('labelAddrCity')} callback={handleChangeNotification} />
+                <FormSelect id="tribute.notify.address.state" label={t('labelAddrState')} callback={handleChangeNotification} options={[]} />
+              </div>
+              <div className="-inline">
+                <FormText id="tribute.notify.address.zip" label={t('labelAddrZip')} callback={handleChangeNotification} />
+                <FormSelect id="tribute.notify.address.country" label={t('labelAddrCountry')} callback={handleChangeNotification} options={[]} />
+              </div>
             </section>
           </div>
         </div>

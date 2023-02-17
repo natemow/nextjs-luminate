@@ -10,7 +10,7 @@ export default Context
 
 export function ContextProvider({ children }) {
 
-  const { t, lang } = useTranslation('common')
+  const { lang } = useTranslation('common')
 
   const [loading, setLoading] = useState(true)
 
