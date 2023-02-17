@@ -3,7 +3,7 @@ import { FormEvent, ReactElement, useContext, useState } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { Forms } from '@/lib/utility'
 import { Context } from '@/components/context'
-import { FormText, FormCheckbox, FormSelect } from '@/components/form'
+import { FormText, FormCheckbox, FormSelect, FormAddress } from '@/components/form'
 
 export function Tribute(): ReactElement {
 
@@ -146,24 +146,7 @@ export function Tribute(): ReactElement {
             </section>
 
             <section data-section="mail" data-toggle={notify !== 'mail'}>
-              <FormText props={{ id: 'tribute.notify.name.full', label: t('labelMailName'), callback: handleChangeNotification }} />
-
-              <div className="-inline">
-                <FormText props={{ id: 'tribute.notify.address.street1', label: t('labelAddr1'), callback: handleChangeNotification }} />
-                <FormText props={{ id: 'tribute.notify.address.street2', label: t('labelAddr2'), callback: handleChangeNotification }} />
-              </div>
-              <div className="-inline">
-                <FormText props={{ id: 'tribute.notify.address.city', label: t('labelAddrCity'), callback: handleChangeNotification }} />
-                <FormSelect props={{ id: 'tribute.notify.address.state', label: t('labelAddrState'), callback: handleChangeNotification, options: [
-
-                  ] }} />
-              </div>
-              <div className="-inline">
-                <FormText props={{ id: 'tribute.notify.address.zip', label: t('labelAddrZip'), callback: handleChangeNotification }} />
-                <FormSelect props={{ id: 'tribute.notify.address.country', label: t('labelAddrCountry'), callback: handleChangeNotification, options: [
-
-                  ] }} />
-              </div>
+              <FormAddress props={{ prefix: 'tribute.notify', callback: handleChangeNotification, nameCount: 1 }} />
             </section>
           </div>
         </div>

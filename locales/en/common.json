@@ -12,7 +12,6 @@
   "labelTribute":         "Give in honor or memory of someone",
   "labelTributeType":     "Tribute type",
   "labelTributeNotify":   "Would you like to notify someone of your gift?",
-  "labelMailName":        "Recipient's full name",
   "labelEcardRecipient":  "Recipient's email address",
   "labelEcardSubject":    "Subject",
 
@@ -21,6 +20,7 @@
   "labelPaymentButton":   "Donate {{amount}}",
   "labelCookie":          "Remember me",
 
+  "labelName":            "Recipient's full name",
   "labelFname":           "First name",
   "labelLname":           "Last name",
   "labelAddr1":           "Address line 1",

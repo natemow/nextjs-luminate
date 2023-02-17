@@ -5,14 +5,13 @@
   "headingPaymentCard":   "Información del pago",
   "headingPaymentPaypal": "Información del donante",
 
-  "labelHeadline":        "<span>Donate a</span> {{organization}}",
+  "labelHeadline":        "<span>Donar a</span> {{organization}}",
   "labelOnce":            "Regalo de una sola vez",
   "labelSustain":         "Regalo mensual",
 
   "labelTribute":         "Dar en honor o memoria de alguien",
   "labelTributeType":     "Tipo de tributo",
   "labelTributeNotify":   "¿Te gustaría avisar a alguien de tu regalo?",
-  "labelMailName":        "Nombre completo del destinatario",
   "labelEcardRecipient":  "Dirección email del destinatario",
   "labelEcardSubject":    "Sujeto",
 
@@ -21,6 +20,7 @@
   "labelPaymentButton":   "Donar {{amount}}",
   "labelCookie":          "Acuérdate de mí",
 
+  "labelName":            "Nombre completo del destinatario",
   "labelFname":           "Nombre de pila",
   "labelLname":           "Apellido",
   "labelAddr1":           "Dirección línea 1",

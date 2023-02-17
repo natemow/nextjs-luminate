@@ -80,3 +80,49 @@ export function FormSelect({ props }): ReactElement {
     </div>
   )
 }
+
+export function FormAddress({ props }): ReactElement {
+
+  const { t } = useTranslation('common')
+
+  const getName = () => {
+    if (props.nameCount === 1) {
+      return (
+        <>
+          <FormText props={{ id: props.prefix + '.name.full', label: t('labelName'), callback: props.callback }} />
+        </>
+      )
+    } else {
+      return (
+        <>
+          <FormText props={{ id: props.prefix + '.name.first', label: t('labelFname'), callback: props.callback }} />
+          <FormText props={{ id: props.prefix + '.name.last', label: t('labelLname'), callback: props.callback }} />
+        </>
+      )
+    }
+  }
+
+  return (
+    <>
+      <div className="-inline">
+        {getName()}
+      </div>
+      <div className="-inline">
+        <FormText props={{ id: props.prefix + '.address.street1', label: t('labelAddr1'), callback: props.callback }} />
+        <FormText props={{ id: props.prefix + '.address.street2', label: t('labelAddr2'), callback: props.callback }} />
+      </div>
+      <div className="-inline">
+        <FormText props={{ id: props.prefix + '.address.city', label: t('labelAddrCity'), callback: props.callback }} />
+        <FormSelect props={{ id: props.prefix + '.address.state', label: t('labelAddrState'), callback: props.callback, options: [
+
+          ] }} />
+      </div>
+      <div className="-inline">
+        <FormText props={{ id: props.prefix + '.address.zip', label: t('labelAddrZip'), callback: props.callback }} />
+        <FormSelect props={{ id: props.prefix + '.address.country', label: t('labelAddrCountry'), callback: props.callback, options: [
+
+          ] }} />
+      </div>
+    </>
+  )
+}
