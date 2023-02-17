@@ -1,9 +1,9 @@
 
 import { FormEvent, ReactElement, useContext, useState } from 'react'
 import useTranslation from 'next-translate/useTranslation'
-import { API, formatCurrency, getProcessingFee } from '@/lib/utility';
+import { API, config, formatCurrency, getProcessingFee} from '@/lib/utility';
 import { Context } from '@/components/context'
-import { FormText, FormCheckbox, FormRadio, FormSelect, FormAddress } from '@/components/form'
+import { FormCheckbox, FormRadio, FormAddress } from '@/components/form'
 
 export function Payment(): ReactElement {
 
@@ -61,6 +61,13 @@ export function Payment(): ReactElement {
 
     const update = getStateUpdate()
     update.donation[input.name] = input.value
+
+    if (!update.donation['billing.address.country']) {
+      update.donation['billing.address.country'] = config.defaultCountry
+    }
+    if (input.name === 'billing.address.country') {
+      delete update.donation['billing.address.state']
+    }
 
     setState(update)
   }

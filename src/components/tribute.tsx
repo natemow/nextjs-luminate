@@ -1,7 +1,7 @@
 
 import { FormEvent, ReactElement, useContext, useState } from 'react'
 import useTranslation from 'next-translate/useTranslation'
-import { Forms } from '@/lib/utility'
+import { config, Forms } from '@/lib/utility'
 import { Context } from '@/components/context'
 import { FormText, FormCheckbox, FormSelect, FormAddress } from '@/components/form'
 
@@ -13,7 +13,7 @@ export function Tribute(): ReactElement {
   const { state, setState, getStateUpdate, setLoading } = useContext(Context)
 
   // Shared form update logic.
-  const getFormUpdate = (formId) => {
+  const getFormUpdate = (formId: string) => {
 
     const update = getStateUpdate()
     update.donation.form_id = formId
@@ -22,6 +22,16 @@ export function Tribute(): ReactElement {
     setLoading(true)
 
     return update
+  }
+
+  const prune = (update: object, prefix: string) => {
+    // @ts-ignore
+    Object.keys(update.donation).forEach(key => {
+      if (key.indexOf(prefix) === 0) {
+        // @ts-ignore
+        delete update.donation[key]
+      }
+    });
   }
 
   // Tribute change.
@@ -45,10 +55,9 @@ export function Tribute(): ReactElement {
       })
 
     } else {
-      delete update.donation['tribute.type']
-      delete update.donation['tribute.honoree.name.first']
-      delete update.donation['tribute.honoree.name.last']
-
+      // Remove tributee, mail and ecard data.
+      prune(update, 'tribute.')
+      prune(update, 'ecard.')
     }
 
     setState(update)
@@ -67,6 +76,14 @@ export function Tribute(): ReactElement {
     }
 
     const update = getFormUpdate(formId)
+
+    update.meta.notify = input.value
+
+    // Remove mail and ecard data.
+    if (!update.meta.notify) {
+      prune(update, 'tribute.notify.')
+      prune(update, 'ecard.')
+    }
 
     setState(update)
   }
@@ -96,22 +113,27 @@ export function Tribute(): ReactElement {
     setNotification(notification)
 
     const update = getStateUpdate()
+
+    if (input.name.indexOf('ecard.') === 0) {
+      // Remove mail data.
+      prune(update, 'tribute.notify.')
+
+    } else if (input.name.indexOf('tribute.notify.') === 0) {
+      // Remove ecard data.
+      prune(update, 'ecard.')
+
+      if (!update.donation['tribute.notify.address.country']) {
+        update.donation['tribute.notify.address.country'] = config.defaultCountry
+      }
+      if (input.name === 'tribute.notify.address.country') {
+        delete update.donation['tribute.notify.address.state']
+      }
+    }
+
     update.donation[input.name] = input.value
 
     setState(update)
   }
-
-  // state['donation']['ecard.send'];
-  // state['donation']['ecard.send_date'];
-  // state['donation']['ecard.id'];
-
-  // state['donation']['ecard.message'];
-  // state['donation']['ecard.copy_sender'];
-  //
-  // state['donation']['tribute.message.body'];
-  // state['donation']['tribute.message.closing'];
-  // state['donation']['tribute.message.signature'];
-
 
   // Render.
   return (
@@ -143,10 +165,22 @@ export function Tribute(): ReactElement {
             <section data-section="ecard" data-toggle={notify !== 'ecard'}>
               <FormText props={{ id: 'ecard.recipients', label: t('labelEcardRecipient'), callback: handleChangeNotification }} />
               <FormText props={{ id: 'ecard.subject', label: t('labelEcardSubject'), callback: handleChangeNotification }} />
+              {/*
+                state['donation']['ecard.send'];
+                state['donation']['ecard.send_date'];
+                state['donation']['ecard.id'];
+                state['donation']['ecard.message'];
+                state['donation']['ecard.copy_sender'];
+              */}
             </section>
 
             <section data-section="mail" data-toggle={notify !== 'mail'}>
               <FormAddress props={{ prefix: 'tribute.notify', callback: handleChangeNotification, nameCount: 1 }} />
+              {/*
+                state['donation']['tribute.message.body'];
+                state['donation']['tribute.message.closing'];
+                state['donation']['tribute.message.signature'];
+              */}
             </section>
           </div>
         </div>

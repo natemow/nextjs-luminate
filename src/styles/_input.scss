@@ -37,7 +37,7 @@ fieldset {
   }
 
   label:not(.sr-only) {
-    color: #333;
+    color: #444;
     line-height: 22px;
     letter-spacing: 0;
     font-weight: bold;
@@ -106,6 +106,7 @@ fieldset {
 
     option {
       font-weight: normal;
+      color: var(--help-color);
     }
   }
 

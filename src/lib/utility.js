@@ -1,9 +1,12 @@
 
+import { Country, State } from 'country-state-city'
 import Luminate from '@/lib/Luminate'
 
 export const
   config = {
-    processingFee: parseFloat(process.env.NEXT_PUBLIC_PROCESSING_FEE)
+    processingFee: parseFloat(process.env.NEXT_PUBLIC_PROCESSING_FEE),
+    limitCountries: ['US', 'CA'],
+    defaultCountry: 'US'
   },
   API = new Luminate({
     key: process.env.NEXT_PUBLIC_API_KEY,
@@ -38,4 +41,16 @@ export function formatCurrency(amount) {
 
 export function getProcessingFee(amount) {
   return roundCurrency(amount * config.processingFee);
+}
+
+export function getCountries() {
+  const countries = Country.getAllCountries();
+
+  return countries.filter(c => {
+    return (config.limitCountries.indexOf(c.isoCode) >= 0);
+  });
+}
+
+export function getStates(countryCode) {
+  return State.getStatesOfCountry(countryCode);
 }

@@ -23,6 +23,7 @@ export function ContextProvider({ children }) {
       locale: lang,
       frequency: 'once',
       levels: [],
+      notify: '',
       fee: false,
       amount: 0,
       amountWithFee: 0
@@ -97,8 +98,4 @@ export function ContextProvider({ children }) {
       {children}
     </Context.Provider>
   )
-}
-
-export const useTranslationWrapper = () => {
-  const { t } = useTranslation('common')
 }

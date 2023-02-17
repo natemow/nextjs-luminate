@@ -5,7 +5,6 @@
 
 .tribute {
   padding-top: $spacing-y;
-  padding-bottom: $spacing-y;
 }
 
 .notify {
@@ -13,6 +12,11 @@
 
   [data-section='ecard'],
   [data-section='mail'] {
+    padding-top: $spacing-y;
     padding-bottom: 0;
+
+    .-inline {
+      margin-bottom: 1em;
+    }
   }
 }
