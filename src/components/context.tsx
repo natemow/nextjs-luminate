@@ -5,16 +5,14 @@ import useTranslation from 'next-translate/useTranslation'
 import { API, Forms, getProcessingFee } from '@/lib/utility'
 import { getLevelByAmount } from '@/components/levels'
 
-const Context = createContext([])
-export default Context
+export const Context = createContext([])
 
 export function ContextProvider({ children }) {
 
-  const { lang } = useTranslation('common')
+  const { lang } = useTranslation('common'),
+        [ loading, setLoading ] = useState(true)
 
-  const [loading, setLoading] = useState(true)
-
-  const [state, setState] = useState({
+  const [ state, setState ] = useState({
     donation: {
       form_id: Forms.once.standard,
       level_id: null,
@@ -30,6 +28,24 @@ export function ContextProvider({ children }) {
       amountWithFee: 0
     }
   })
+
+  /**
+   * Get an object suitable for updating and sending to setState().
+   *
+   * Replace in state, don't mutate!!
+   * @see https://beta.reactjs.org/reference/react/useState#ive-updated-the-state-but-the-screen-doesnt-update
+   */
+  const getStateUpdate = () => {
+    return {
+      ...state,
+      donation: {
+        ...state['donation']
+      },
+      meta: {
+        ...state['meta']
+      }
+    }
+  }
 
   /**
    * Get donation levels from the API and update state.
@@ -65,24 +81,6 @@ export function ContextProvider({ children }) {
     }
   }
 
-  /**
-   * Get an object suitable for updating and sending to setState().
-   *
-   * Replace in state, don't mutate!!
-   * @see https://beta.reactjs.org/reference/react/useState#ive-updated-the-state-but-the-screen-doesnt-update
-   */
-  const getStateUpdate = () => {
-    return {
-      ...state,
-      donation: {
-        ...state['donation']
-      },
-      meta: {
-        ...state['meta']
-      }
-    }
-  }
-
   useEffect(() => {
     const query = queryString.parse(window.location.search)
 
@@ -95,7 +93,7 @@ export function ContextProvider({ children }) {
 
   return (
     // @ts-ignore
-    <Context.Provider value={{ state, setState, getStateUpdate, setLevels, loading, setLoading }}>
+    <Context.Provider value={{ state, setState, getStateUpdate, loading, setLoading, setLevels }}>
       {children}
     </Context.Provider>
   )

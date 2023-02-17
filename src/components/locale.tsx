@@ -1,7 +1,7 @@
 
 import { FormEvent, ReactElement, useContext, useState } from 'react'
 import setLanguage from 'next-translate/setLanguage'
-import Context from '@/components/context'
+import { Context } from '@/components/context'
 
 export function Locale(): ReactElement {
 

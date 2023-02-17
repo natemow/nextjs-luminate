@@ -1,7 +1,7 @@
 
 import { FormEvent, ReactElement, useContext } from 'react'
 import { roundCurrency, formatCurrency, getProcessingFee } from '@/lib/utility'
-import Context from '@/components/context'
+import { Context } from '@/components/context'
 
 /**
  * Get level from updated state.meta.levels based on previous amount.

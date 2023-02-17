@@ -2,7 +2,7 @@
 import { FormEvent, ReactElement, useContext, useState, useEffect } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { Forms } from '@/lib/utility'
-import Context from '@/components/context'
+import { Context } from '@/components/context'
 
 export function Frequency(): ReactElement {
 
@@ -59,8 +59,8 @@ export function Frequency(): ReactElement {
     <>
       <nav data-section="frequency">
         <ul className="-inline">
-          <li className="input">{getButton('once', t('frequencyOnce'))}</li>
-          <li className="input">{getButton('sustain', t('frequencySustain'))}</li>
+          <li className="input">{getButton('once', t('labelOnce'))}</li>
+          <li className="input">{getButton('sustain', t('labelSustain'))}</li>
         </ul>
       </nav>
     </>
