@@ -98,3 +98,7 @@ export function ContextProvider({ children }) {
     </Context.Provider>
   )
 }
+
+export const useTranslationWrapper = () => {
+  const { t } = useTranslation('common')
+}

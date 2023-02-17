@@ -25,6 +25,7 @@ export function Form(): ReactElement {
 
   return (
     <form className="donation">
+      <h1 dangerouslySetInnerHTML={{ __html: t('labelHeadline', { 'organization': t('organization')}) }}></h1>
       <Locale />
       <Frequency />
       <Levels />

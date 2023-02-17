@@ -6,6 +6,8 @@ $ts: .25s;        // transition speed
 $te: ease-in-out; // transition ease
 
 :root {
+  --letter-spacing: 0.025em;
+
   --active-bg: #025993;
   --active-hover: #75cbc866;
   --active-color: #fff;
@@ -40,8 +42,20 @@ pre {
   padding: 0;
 }
 
+h1,
 h2 {
-  margin: .5em 0 1em 0;
+  line-height: 1;
+  letter-spacing: calc(var(--letter-spacing) * -1);
+  margin: 0 0 .5em 0;
+
+  span {
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0;
+    color: var(--help-color);
+    display: block;
+    margin: 0 0 .25em 0;
+  }
 }
 
 p {

@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 
 const path = require('path'),
-      nextTranslate = require('next-translate')
+      translate = require('next-translate')
 
-const nextConfig = nextTranslate({
+const nextConfig = translate({
   reactStrictMode: true,
   distDir: 'build',
   sassOptions: {

@@ -5,6 +5,7 @@
   "headingPaymentCard":   "Información del pago",
   "headingPaymentPaypal": "Información del donante",
 
+  "labelHeadline":        "<span>Donate a</span> {{organization}}",
   "labelOnce":            "Regalo de una sola vez",
   "labelSustain":         "Regalo mensual",
 

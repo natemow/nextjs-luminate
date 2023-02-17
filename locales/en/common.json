@@ -5,6 +5,7 @@
   "headingPaymentCard":   "Payment Information",
   "headingPaymentPaypal": "Donor Information",
 
+  "labelHeadline":        "<span>Donate to</span> {{organization}}",
   "labelOnce":            "One-time gift",
   "labelSustain":         "Monthly gift",
 
