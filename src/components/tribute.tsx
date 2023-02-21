@@ -1,7 +1,6 @@
 
 import { FormEvent, ReactElement, useContext, useState, useEffect } from 'react'
 import useTranslation from 'next-translate/useTranslation'
-import Modal from 'react-overlays/Modal'
 import { config, Forms } from '@/lib/utility'
 import { Context } from '@/components/context'
 import { FormText, FormTextarea, FormCheckbox, FormSelect, FormAddress, FormDate, FormRadio } from '@/components/form'
