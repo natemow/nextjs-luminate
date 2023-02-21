@@ -6,6 +6,8 @@ $ts: .25s;        // transition speed
 $te: ease-in-out; // transition ease
 
 :root {
+  --max-width: 800px;
+
   --letter-spacing: 0.025em;
 
   --active-bg: #025993;
@@ -93,10 +95,11 @@ ul.-inline {
 .help {
   font-size: 14px;
   color: var(--help-color);
+  max-width: 60%;
 }
 
 .donation {
-  width: 800px;
+  width: var(--max-width);
   margin: $spacing-y auto;
 }
 
@@ -118,6 +121,7 @@ ul.-inline {
 }
 
 @import 'input';
+@import 'modal';
 @import 'locale';
 @import 'frequency';
 @import 'levels';

@@ -12,8 +12,16 @@
   "labelTribute":         "Dar en honor o memoria de alguien",
   "labelTributeType":     "Tipo de tributo",
   "labelTributeNotify":   "¿Te gustaría avisar a alguien de tu regalo?",
-  "labelEcardRecipient":  "Dirección email del destinatario",
-  "labelEcardSubject":    "Sujeto",
+  "labelSendDate":        "Fecha de envio",
+  "labelRecipient":       "Dirección email del destinatario",
+  "labelSubject":         "Sujeto",
+  "labelMessage":         "Mensaje",
+  "labelClosing":         "Clausura",
+  "labelSignature":       "Firma",
+  "phClosing":            "El más cálido saludo,",
+  "labelCopySender":      "Envíame una copia de la tarjeta electrónica",
+  "labelPreview":         "Preestreno",
+  "labelClose":           "Cerrar",
 
   "labelPayment":         "Pagar con",
   "labelPaymentFee":      "Quiero que el 100 % de mi donación vaya a la {{organization}}. Agregaré {{amount}} a mi donación para cubrir las tarifas de transacción de la tarjeta de crédito.",
@@ -39,5 +47,23 @@
   "optCard":              "Tarjeta de crédito",
   "optPaypal":            "PayPal",
 
-  "helpInfo":             "Si tiene problemas para procesar su regalo, es posible que deba actualizar<br>su navegador. Para obtener ayuda, por favor llame <a href=tel:8001234567>800-123-4567</a>."
+  "optsEcard":            [{
+    "id": "3724",
+    "label": "Tarjeta electrónica #1",
+    "thumbnail": "https://via.placeholder.com/150/EEEEEE/555555?text=1",
+    "fullsize": "https://via.placeholder.com/500/EEEEEE/555555?text=1"
+  }, {
+    "id": "3725",
+    "label": "Tarjeta electrónica #2",
+    "thumbnail": "https://via.placeholder.com/150/EEEEEE/555555?text=2",
+    "fullsize": "https://via.placeholder.com/500/EEEEEE/555555?text=2"
+  }, {
+    "id": "3726",
+    "label": "Tarjeta electrónica #3",
+    "thumbnail": "https://via.placeholder.com/150/EEEEEE/555555?text=3",
+    "fullsize": "https://via.placeholder.com/500/EEEEEE/555555?text=3"
+  }],
+
+  "helpNotifyLimit":      "Tenga en cuenta: solo se enviará una notificación a los destinatarios de los obsequios para todas las donaciones de obsequios de honor y conmemoración.",
+  "helpInfo":             "Si tiene problemas para procesar su regalo, es posible que deba actualizar su navegador. Para obtener ayuda, por favor llame <a href=tel:8001234567>800-123-4567</a>."
 }

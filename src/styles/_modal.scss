@@ -1,0 +1,63 @@
+
+html[data-modal='true'] {
+  body::after {
+    content: '';
+    display: block;
+    position: fixed;
+    z-index: 1040;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #000;
+    opacity: 0.60;
+    transition: opactity $ts $te;
+  }
+
+  .modal {
+    display: block;
+    opacity: 1;
+  }
+}
+
+.modal {
+  display: none;
+  opacity: 0;
+  position: fixed;
+  z-index: 1050;
+  top: $spacing-y;
+  width: var(--max-width);
+  margin-left: -1.5em;
+  border: var(--input-border);
+  border-radius: var(--input-border-radius);
+  background-color: var(--input-bg);
+  box-shadow: 0 .25em 1em .25em rgba(0, 0, 0, .5);
+  transition: opacity $ts $te;
+
+  &-inner {
+    padding: $spacing-y;
+  }
+
+  dl {
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: $spacing-y 0;
+
+    dt, dd {
+      float: left;
+      padding: 0 0 .5em 0;
+      margin: 0;
+      font-weight: normal;
+    }
+
+    dt {
+      width: 40%;
+    }
+
+    dd {
+      width: 60%;
+    }
+  }
+
+}

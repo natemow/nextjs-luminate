@@ -1,6 +1,8 @@
 
 import { ReactElement, FormEvent, useContext, useState, useMemo } from 'react'
 import useTranslation from 'next-translate/useTranslation'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import { config, getStates, getCountries } from '@/lib/utility'
 import { Context } from '@/components/context'
 import { Locale } from '@/components/locale'
@@ -39,14 +41,19 @@ export function Form(): ReactElement {
 }
 
 export function FormText({ props }): ReactElement {
-
-  // @ts-ignore
-  const { state } = useContext(Context)
-
   return (
     <div className={'input -text' + (props.className ? ' ' + props.className : '')}>
       <label htmlFor={props.id}>{props.label}</label>
-      <input onInput={props.callback} name={props.id} defaultValue={props.defaultValue ?? null} id={props.id} type="text" />
+      <input onInput={props.callback} name={props.id} defaultValue={props.defaultValue ?? null} id={props.id} type="text" placeholder={props.placeholder ?? null} />
+    </div>
+  )
+}
+
+export function FormTextarea({ props }): ReactElement {
+  return (
+    <div className={'input -textarea' + (props.className ? ' ' + props.className : '')}>
+      <label htmlFor={props.id}>{props.label}</label>
+      <textarea onInput={props.callback} name={props.id} defaultValue={props.defaultValue ?? null} id={props.id} placeholder={props.placeholder ?? null} />
     </div>
   )
 }
@@ -152,5 +159,26 @@ export function FormAddress({ props }): ReactElement {
         <FormSelect props={{ id: props.prefix + '.address.country', label: t('labelAddrCountry'), callback: handleChangeCountry, options: optionsCountry, defaultValue: country }} />
       </div>
     </>
+  )
+}
+
+export function FormDate({ props }): ReactElement {
+
+  const { lang } = useTranslation('common')
+
+  // @ts-ignore
+  const { state } = useContext(Context)
+
+  const [date, setDate] = useState(state['donation'][props.id] ?? null)
+  const handleChangeDate = async (date) => {
+    setDate(date)
+    props.callback(props, date)
+  }
+
+  return (
+    <div className={'input -text' + (props.className ? ' ' + props.className : '')}>
+      <label htmlFor={props.id}>{props.label}</label>
+      <DatePicker locale={lang} selected={date} onChange={handleChangeDate} />
+    </div>
   )
 }

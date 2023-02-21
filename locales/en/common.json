@@ -12,8 +12,16 @@
   "labelTribute":         "Give in honor or memory of someone",
   "labelTributeType":     "Tribute type",
   "labelTributeNotify":   "Would you like to notify someone of your gift?",
-  "labelEcardRecipient":  "Recipient's email address",
-  "labelEcardSubject":    "Subject",
+  "labelSendDate":        "Send date",
+  "labelRecipient":       "Recipient's email address",
+  "labelSubject":         "Subject",
+  "labelMessage":         "Message",
+  "labelClosing":         "Closing",
+  "labelSignature":       "Signature",
+  "phClosing":            "Warmest regards,",
+  "labelCopySender":      "Send me a copy of the eCard",
+  "labelPreview":         "Preview",
+  "labelClose":           "Close",
 
   "labelPayment":         "Pay with",
   "labelPaymentFee":      "I want 100% of my donation to go to the {{organization}}. I will add {{amount}} to my donation to cover credit card transaction fees.",
@@ -39,5 +47,23 @@
   "optCard":              "Credit card",
   "optPaypal":            "PayPal",
 
-  "helpInfo":             "If you are having issues with processing your gift, you may need to<br>update your browser. For assistance, please call <a href=tel:8001234567>800-123-4567</a>."
+  "optsEcard":            [{
+    "id": "3724",
+    "label": "eCard #1",
+    "thumbnail": "https://via.placeholder.com/150/EEEEEE/555555?text=1",
+    "fullsize": "https://via.placeholder.com/500/EEEEEE/555555?text=1"
+  }, {
+    "id": "3725",
+    "label": "eCard #2",
+    "thumbnail": "https://via.placeholder.com/150/EEEEEE/555555?text=2",
+    "fullsize": "https://via.placeholder.com/500/EEEEEE/555555?text=2"
+  }, {
+    "id": "3726",
+    "label": "eCard #3",
+    "thumbnail": "https://via.placeholder.com/150/EEEEEE/555555?text=3",
+    "fullsize": "https://via.placeholder.com/500/EEEEEE/555555?text=3"
+  }],
+
+  "helpNotifyLimit":      "Please note: Only one notification will be sent to gift recipients for all Honor and Memorial gift donations.",
+  "helpInfo":             "If you are having issues with processing your gift, you may need to update your browser. For assistance, please call <a href=tel:8001234567>800-123-4567</a>."
 }
