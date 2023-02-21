@@ -155,11 +155,10 @@ export function Tribute(): ReactElement {
     const update = getStateUpdate(),
           fmtYY = date.toLocaleDateString('en-us', { year:'numeric' }),
           fmtMM = date.toLocaleDateString('en-us', { month:'2-digit' }),
-          fmtDD = date.toLocaleDateString('en-us', { day:'2-digit' }),
-          fmt = `${fmtYY}-${fmtMM}-${fmtDD}`
+          fmtDD = date.toLocaleDateString('en-us', { day:'2-digit' })
 
     // @ts-ignore
-    update.donation[props.id] = fmt
+    update.donation[props.id] = `${fmtYY}-${fmtMM}-${fmtDD}`
 
     setState(update)
   }
@@ -208,10 +207,17 @@ export function Tribute(): ReactElement {
           options = []
 
     for (let i = 0; i < data.length; i++) {
+            // @ts-ignore
+      const value = data[i].id,
+            // @ts-ignore
+            label = data[i].label,
+            // @ts-ignore
+            image = data[i].thumbnail
+
       options.push(
-        <div key={data[i].id} className={'ecard' + (data[i].id === ecard ? ' -active' : '')} onClick={handleChangeEcard} data-ecard={data[i].id}>
-          <img src={data[i].thumbnail} alt={data[i].label} width="150" height="150" data-ecard={data[i].id} />
-          <FormRadio props={{ id: data[i].id, label: data[i].label, name: 'ecard.id', value: data[i].id, checked: (ecard === data[i].id), callback: handleChangeEcard }} />
+        <div key={value} className={'ecard' + (value === ecard ? ' -active' : '')} onClick={handleChangeEcard} data-ecard={value}>
+          <img src={image} alt={label} width="150" height="150" data-ecard={value} />
+          <FormRadio props={{ id: value, label: label, name: 'ecard.id', value: value, checked: (ecard === value), callback: handleChangeEcard }} />
         </div>
       )
     }
@@ -220,7 +226,7 @@ export function Tribute(): ReactElement {
   }
 
   // Preview click.
-  let [ecardActive, setEcardActive] = useState('')
+  let [ecardActive, setEcardActive] = useState(null)
   let [preview, setPreview] = useState(false)
   const handlePreview = async (e: FormEvent) => {
     e.preventDefault()
@@ -230,8 +236,14 @@ export function Tribute(): ReactElement {
 
     const data = t('optsEcard', {}, { returnObjects: true })
     for (let i = 0; i < data.length; i++) {
-      if (data[i].id === ecard) {
-        ecardActive = (<img src={data[i].fullsize} alt={data[i].label} width="500" height="500" data-ecard={data[i].id} />)
+            // @ts-ignore
+      const value = data[i].id,
+            // @ts-ignore
+            label = data[i].label,
+            // @ts-ignore
+            image = data[i].fullsize
+      if (value === ecard) {
+        ecardActive = (<img src={image} alt={label} width="500" height="500" data-ecard={value} />)
       }
     }
     setEcardActive(ecardActive)
