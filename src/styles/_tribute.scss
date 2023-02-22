@@ -15,7 +15,7 @@
   }
 
   .ecards {
-    margin: 1.5em 0 1em 0;
+    margin: 1.5em 0 0 0;
   }
 
   .ecard {
@@ -29,6 +29,19 @@
     img {
       border: var(--input-border);
       border-radius: var(--input-border-radius);
+      margin: 0 0 .25em 0;
+      transition: all $ts $te;
+    }
+
+    &:hover {
+      input ~ span {
+        background-color: var(--active-hover);
+        border-color: var(--active-bg);
+      }
+
+      img {
+        border-color: var(--active-bg);
+      }
     }
   }
 
