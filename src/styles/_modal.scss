@@ -37,27 +37,4 @@ html[data-modal='true'] {
   &-inner {
     padding: $spacing-y;
   }
-
-  dl {
-    width: 100%;
-    overflow: hidden;
-    padding: 0;
-    margin: $spacing-y 0;
-
-    dt, dd {
-      float: left;
-      padding: 0 0 .5em 0;
-      margin: 0;
-      font-weight: normal;
-    }
-
-    dt {
-      width: 40%;
-    }
-
-    dd {
-      width: 60%;
-    }
-  }
-
 }

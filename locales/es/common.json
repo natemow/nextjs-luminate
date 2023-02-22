@@ -16,6 +16,7 @@
   "labelRecipient":       "Dirección email del destinatario",
   "labelSubject":         "Sujeto",
   "labelMessage":         "Mensaje",
+  "labelCountRemaining":  "Quedan {{count}} caracteres",
   "labelClosing":         "Clausura",
   "labelSignature":       "Firma",
   "phClosing":            "El más cálido saludo,",

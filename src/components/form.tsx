@@ -50,10 +50,31 @@ export function FormText({ props }): ReactElement {
 }
 
 export function FormTextarea({ props }): ReactElement {
+
+  const { t } = useTranslation('common')
+
+  const [remaining, setRemaining] = useState(props.maxlength ?? 0)
+  const handleChangeRemaining = async (e: FormEvent) => {
+
+    if (props.maxlength) {
+      const input = e.target as HTMLFormElement
+
+      let remaining = (props.maxlength - input.value.length);
+      if (remaining <= 0) {
+        remaining = 0
+        input.value = input.value.substring(0, props.maxlength)
+      }
+      setRemaining(remaining)
+    }
+
+    props.callback(e)
+  }
+
   return (
     <div className={'input -textarea' + (props.className ? ' ' + props.className : '')}>
       <label htmlFor={props.id}>{props.label}</label>
-      <textarea onInput={props.callback} name={props.id} defaultValue={props.defaultValue ?? null} id={props.id} placeholder={props.placeholder ?? null} />
+      <textarea onInput={handleChangeRemaining} name={props.id} defaultValue={props.defaultValue ?? null} id={props.id} placeholder={props.placeholder ?? null} data-count={props.maxlength ?? null} />
+      <p className="help">{t('labelCountRemaining', { 'count': remaining })}</p>
     </div>
   )
 }

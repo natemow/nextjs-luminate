@@ -1,6 +1,7 @@
 
 import { FormEvent, ReactElement, useContext, useState, useEffect } from 'react'
 import useTranslation from 'next-translate/useTranslation'
+import Image from 'next/image'
 import { config, Forms } from '@/lib/utility'
 import { Context } from '@/components/context'
 import { FormText, FormTextarea, FormCheckbox, FormSelect, FormAddress, FormDate, FormRadio } from '@/components/form'
@@ -179,6 +180,7 @@ export function Tribute(): ReactElement {
   }
 
   // Ecard change.
+  let ecards = {}
   const [ecard, setEcard] = useState(state['donation']['ecard.id'])
   const handleChangeEcard = async (e: FormEvent) => {
 
@@ -203,30 +205,32 @@ export function Tribute(): ReactElement {
   // Helper function to build ecard inputs.
   const getECards = () => {
 
-    const data = t('optsEcard', {}, { returnObjects: true }),
-          options = []
-
+    // Set ecards.
+    ecards = {}
+    const data = t('optsEcard', {}, { returnObjects: true })
     for (let i = 0; i < data.length; i++) {
-            // @ts-ignore
-      const value = data[i].id,
-            // @ts-ignore
-            label = data[i].label,
-            // @ts-ignore
-            image = data[i].thumbnail
+      // @ts-ignore
+      const id = data[i].id, label = data[i].label, thumbnail = data[i].thumbnail, fullsize = data[i].fullsize
+      ecards[id] = { id, label, thumbnail, fullsize }
+    }
+
+    const options = []
+    Object.keys(ecards).forEach(id => {
+      const data = ecards[id]
 
       options.push(
-        <div key={value} className={'ecard' + (value === ecard ? ' -active' : '')} onClick={handleChangeEcard} data-ecard={value}>
-          <img src={image} alt={label} width="150" height="150" data-ecard={value} />
-          <FormRadio props={{ id: value, label: label, name: 'ecard.id', value: value, checked: (ecard === value), callback: handleChangeEcard }} />
+        <div key={data.id} className={'ecard' + (data.id === ecard ? ' -active' : '')} onClick={handleChangeEcard} data-ecard={data.id}>
+          <Image unoptimized={true} src={data.thumbnail} alt={data.label} width="150" height="150" data-ecard={data.id} />
+          <FormRadio props={{ id: data.id, label: data.label, name: 'ecard.id', value: data.id, checked: (ecard === data.id), callback: handleChangeEcard }} />
         </div>
       )
-    }
+    });
 
     return options
   }
 
   // Preview click.
-  let [ecardActive, setEcardActive] = useState(null)
+  let [ecardImage, setEcardImage] = useState(null)
   let [preview, setPreview] = useState(false)
   const handlePreview = async (e: FormEvent) => {
     e.preventDefault()
@@ -234,20 +238,15 @@ export function Tribute(): ReactElement {
     preview = !preview
     setPreview(preview)
 
-    const data = t('optsEcard', {}, { returnObjects: true })
-    for (let i = 0; i < data.length; i++) {
-            // @ts-ignore
-      const value = data[i].id,
-            // @ts-ignore
-            label = data[i].label,
-            // @ts-ignore
-            image = data[i].fullsize
-      if (value === ecard) {
-        ecardActive = (<img src={image} alt={label} width="500" height="500" data-ecard={value} />)
+    Object.keys(ecards).forEach(id => {
+      const data = ecards[id]
+      if (data.id === ecard) {
+        ecardImage = (<Image unoptimized={true} src={data.fullsize} alt={data.label} width="500" height="500" data-ecard={data.id} />)
+        setEcardImage(ecardImage)
       }
-    }
-    setEcardActive(ecardActive)
+    })
   }
+
 
   useEffect(() => {
     document.documentElement.setAttribute('data-modal', preview.toString())
@@ -280,14 +279,17 @@ export function Tribute(): ReactElement {
                 <option key="value" value="mail">{t('optMail')}</option>
               ] }} />
 
+            {/* Ecard notification. */}
             <section data-section="ecard" data-toggle={notify !== 'ecard'}>
               <div className="ecards -inline">
                 {getECards()}
               </div>
               <FormDate props={{ id: 'ecard.send_date', label: t('labelSendDate'), callback: handleChangeNotificationDate }} />
-              <FormText props={{ id: 'ecard.recipients', label: t('labelRecipient'), callback: handleChangeNotification }} />
-              <FormText props={{ id: 'ecard.subject', label: t('labelSubject'), callback: handleChangeNotification }} />
-              <FormTextarea props={{ id: 'ecard.message', label: t('labelMessage'), callback: handleChangeNotification }} />
+              <div className="-inline">
+                <FormText props={{ id: 'ecard.recipients', label: t('labelRecipient'), callback: handleChangeNotification }} />
+                <FormText props={{ id: 'ecard.subject', label: t('labelSubject'), callback: handleChangeNotification }} />
+              </div>
+              <FormTextarea props={{ id: 'ecard.message', label: t('labelMessage'), callback: handleChangeNotification, maxlength: 250 }} />
               <FormCheckbox props={{ id: 'ecard.copy_sender', label: t('labelCopySender'), callback: handleChangeCopy, checked: copy }} />
 
               {/* Ecard preview. */}
@@ -295,19 +297,31 @@ export function Tribute(): ReactElement {
                 <button onClick={handlePreview} aria-label="preview">{t('labelPreview')}</button>
                 <div className="modal -preview" aria-labelledby="preview" data-toggle={!preview}>
                   <div className="modal-inner">
-                    <button onClick={handlePreview} className="help">{t('labelClose')}</button>
-                    <dl>
-                      <dt>{t('labelSendDate')}:</dt>
-                      <dd>{state['donation']['ecard.send_date']}</dd>
-                      <dt>{t('labelRecipient')}:</dt>
-                      <dd>{state['donation']['ecard.recipients']}</dd>
-                      <dt>{t('labelSubject')}:</dt>
-                      <dd>{state['donation']['ecard.subject']}</dd>
-                      <dt>{t('labelMessage')}:</dt>
-                      <dd></dd>
-                    </dl>
+                    <div className="-inline -right">
+                      <button onClick={handlePreview}>{t('labelClose')}</button>
+                    </div>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <th>{t('labelSendDate')}:</th>
+                          <td>{state['donation']['ecard.send_date']}</td>
+                        </tr>
+                        <tr>
+                          <th>{t('labelRecipient')}:</th>
+                          <td>{state['donation']['ecard.recipients']}</td>
+                        </tr>
+                        <tr>
+                          <th>{t('labelSubject')}:</th>
+                          <td>{state['donation']['ecard.subject']}</td>
+                        </tr>
+                        <tr>
+                          <th>{t('labelMessage')}:</th>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
                     <div className="message">
-                      {ecardActive}
+                      {ecardImage}
                       <p>{state['donation']['ecard.message']}</p>
                     </div>
                   </div>
@@ -317,11 +331,14 @@ export function Tribute(): ReactElement {
               <p className="help" dangerouslySetInnerHTML={{ __html: t('helpNotifyLimit') }}></p>
             </section>
 
+            {/* Mail notification. */}
             <section data-section="mail" data-toggle={notify !== 'mail'}>
               <FormAddress props={{ prefix: 'tribute.notify', callback: handleChangeNotification, nameCount: 1 }} />
-              <FormTextarea props={{ id: 'tribute.message.body', label: t('labelMessage'), callback: handleChangeNotification }} />
-              <FormText props={{ id: 'tribute.message.closing', label: t('labelClosing'), callback: handleChangeNotification, placeholder: t('phClosing') }} />
-              <FormText props={{ id: 'tribute.message.signature', label: t('labelSignature'), callback: handleChangeNotification }} />
+              <FormTextarea props={{ id: 'tribute.message.body', label: t('labelMessage'), callback: handleChangeNotification, maxlength: 250 }} />
+              <div className="-inline">
+                <FormText props={{ id: 'tribute.message.closing', label: t('labelClosing'), callback: handleChangeNotification, placeholder: t('phClosing') }} />
+                <FormText props={{ id: 'tribute.message.signature', label: t('labelSignature'), callback: handleChangeNotification }} />
+              </div>
               <p className="help" dangerouslySetInnerHTML={{ __html: t('helpNotifyLimit') }}></p>
             </section>
           </div>

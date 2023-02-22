@@ -36,6 +36,13 @@ fieldset {
     letter-spacing: var(--letter-spacing);
   }
 
+  & .help {
+    @extend .help;
+    font-weight: normal;
+    margin: .25em 0 0 0;
+    padding: 0;
+  }
+
   label:not(.sr-only) {
     color: #444;
     line-height: 22px;
@@ -116,9 +123,10 @@ fieldset {
   }
 
   textarea {
-    min-height: 120px;
+    min-height: 80px;
     width: 99.5%;
     padding: 10px;
+    line-height: 1.5;
   }
 
   &.-checkbox,

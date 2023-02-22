@@ -16,6 +16,7 @@
   "labelRecipient":       "Recipient's email address",
   "labelSubject":         "Subject",
   "labelMessage":         "Message",
+  "labelCountRemaining":  "{{count}} characters remaining",
   "labelClosing":         "Closing",
   "labelSignature":       "Signature",
   "phClosing":            "Warmest regards,",
