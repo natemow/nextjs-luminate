@@ -2,7 +2,7 @@
 import queryString from 'query-string'
 import { createContext, useState, useEffect } from 'react'
 import useTranslation from 'next-translate/useTranslation'
-import { API, Forms, getProcessingFee } from '@/lib/utility'
+import { API, Forms, clearInput, getProcessingFee } from '@/lib/utility'
 import { getLevelByAmount } from '@/components/levels'
 
 export const Context = createContext([])
@@ -46,6 +46,20 @@ export function ContextProvider({ children }) {
         ...state['meta']
       }
     }
+  }
+
+  /**
+   * Helper function to prune data from update.donation.
+   */
+  const pruneState = (update: object, prefix: string) => {
+    // @ts-ignore
+    Object.keys(update.donation).forEach(key => {
+      if (key.indexOf(prefix) === 0) {
+        // @ts-ignore
+        delete update.donation[key]
+        clearInput(key)
+      }
+    });
   }
 
   /**
@@ -94,7 +108,7 @@ export function ContextProvider({ children }) {
 
   return (
     // @ts-ignore
-    <Context.Provider value={{ state, setState, getStateUpdate, loading, setLoading, setLevels }}>
+    <Context.Provider value={{ state, setState, getStateUpdate, pruneState, loading, setLoading, setLevels }}>
       {children}
     </Context.Provider>
   )

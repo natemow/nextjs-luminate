@@ -2,7 +2,7 @@
 import { FormEvent, ReactElement, useContext, useState, useEffect } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import Image from 'next/image'
-import { config, Forms } from '@/lib/utility'
+import { config, Forms, formatDate } from '@/lib/utility'
 import { Context } from '@/components/context'
 import { FormText, FormTextarea, FormCheckbox, FormSelect, FormAddress, FormDate, FormRadio } from '@/components/form'
 
@@ -11,7 +11,7 @@ export function Tribute(): ReactElement {
   const { t } = useTranslation('common')
 
   // @ts-ignore
-  const { state, setState, getStateUpdate, setLoading } = useContext(Context)
+  const { state, setState, getStateUpdate, pruneState, setLoading } = useContext(Context)
 
   // Shared form update logic.
   const getFormUpdate = (formId: string) => {
@@ -23,17 +23,6 @@ export function Tribute(): ReactElement {
     setLoading(true)
 
     return update
-  }
-
-  // Helper function to prune keys from update.donation.
-  const prune = (update: object, prefix: string) => {
-    // @ts-ignore
-    Object.keys(update.donation).forEach(key => {
-      if (key.indexOf(prefix) === 0) {
-        // @ts-ignore
-        delete update.donation[key]
-      }
-    });
   }
 
   // Tribute change.
@@ -58,8 +47,8 @@ export function Tribute(): ReactElement {
 
     } else {
       // Remove tributee, mail and ecard data.
-      prune(update, 'tribute.')
-      prune(update, 'ecard.')
+      pruneState(update, 'tribute.')
+      pruneState(update, 'ecard.')
     }
 
     setState(update)
@@ -83,14 +72,14 @@ export function Tribute(): ReactElement {
 
     // Remove mail and ecard data.
     if (!update.meta.notify) {
-      prune(update, 'tribute.notify.')
-      prune(update, 'tribute.message.')
-      prune(update, 'ecard.')
+      pruneState(update, 'tribute.notify.')
+      pruneState(update, 'tribute.message.')
+      pruneState(update, 'ecard.')
     } else if (update.meta.notify === 'ecard') {
-      prune(update, 'tribute.notify.')
-      prune(update, 'tribute.message.')
+      pruneState(update, 'tribute.notify.')
+      pruneState(update, 'tribute.message.')
     } else if (update.meta.notify === 'mail') {
-      prune(update, 'ecard.')
+      pruneState(update, 'ecard.')
     }
 
     setState(update)
@@ -124,25 +113,28 @@ export function Tribute(): ReactElement {
 
     if (input.name.indexOf('ecard.') === 0) {
       // Remove mail data.
-      prune(update, 'tribute.notify.')
+      pruneState(update, 'tribute.notify.')
 
-      // Update send status.
+      // Update send status and date.
       update.donation['ecard.send'] = true
+      if (!update.donation['ecard.send_date']) {
+        update.donation['ecard.send_date'] = formatDate(new Date())
+      }
 
     } else if (input.name.indexOf('tribute.notify.') === 0) {
       // Remove ecard data.
-      prune(update, 'ecard.')
+      pruneState(update, 'ecard.')
 
       // Update country/state.
       if (!update.donation['tribute.notify.address.country']) {
-        update.donation['tribute.notify.address.country'] = config.defaultCountry
+        update.donation['tribute.notify.address.country'] = config.countryDefault
       }
       if (input.name === 'tribute.notify.address.country') {
         delete update.donation['tribute.notify.address.state']
       }
     } else if (input.name.indexOf('tribute.message.') === 0) {
       // Remove ecard data.
-      prune(update, 'ecard.')
+      pruneState(update, 'ecard.')
     }
 
     update.donation[input.name] = input.value
@@ -153,13 +145,10 @@ export function Tribute(): ReactElement {
   // Notification date change.
   const handleChangeNotificationDate = async (props: object, date: Date) => {
 
-    const update = getStateUpdate(),
-          fmtYY = date.toLocaleDateString('en-us', { year:'numeric' }),
-          fmtMM = date.toLocaleDateString('en-us', { month:'2-digit' }),
-          fmtDD = date.toLocaleDateString('en-us', { day:'2-digit' })
+    const update = getStateUpdate();
 
     // @ts-ignore
-    update.donation[props.id] = `${fmtYY}-${fmtMM}-${fmtDD}`
+    update.donation[props.id] = formatDate(date)
 
     setState(update)
   }
@@ -196,7 +185,7 @@ export function Tribute(): ReactElement {
 
     const update = getStateUpdate()
 
-    update.donation['ecard.id'] = value
+    update.donation['ecard.id'] = parseInt(value)
 
     setState(update)
     setEcard(value)

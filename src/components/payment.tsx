@@ -63,7 +63,7 @@ export function Payment(): ReactElement {
     update.donation[input.name] = input.value
 
     if (!update.donation['billing.address.country']) {
-      update.donation['billing.address.country'] = config.defaultCountry
+      update.donation['billing.address.country'] = config.countryDefault
     }
     if (input.name === 'billing.address.country') {
       delete update.donation['billing.address.state']

@@ -73,7 +73,7 @@ export function FormTextarea({ props }): ReactElement {
   return (
     <div className={'input -textarea' + (props.className ? ' ' + props.className : '')}>
       <label htmlFor={props.id}>{props.label}</label>
-      <textarea onInput={handleChangeRemaining} name={props.id} defaultValue={props.defaultValue ?? null} id={props.id} placeholder={props.placeholder ?? null} data-count={props.maxlength ?? null} />
+      <textarea onInput={handleChangeRemaining} name={props.id} defaultValue={props.defaultValue ?? null} id={props.id} placeholder={props.placeholder ?? null} />
       <p className="help">{t('labelCountRemaining', { 'count': remaining })}</p>
     </div>
   )
@@ -135,7 +135,7 @@ export function FormAddress({ props }): ReactElement {
   const [province, setProvince] = useState(state['donation'][props.prefix + '.address.state'])
 
   // Country change.
-  const [country, setCountry] = useState(state['donation'][props.prefix + '.address.country'] ?? config.defaultCountry)
+  const [country, setCountry] = useState(state['donation'][props.prefix + '.address.country'] ?? config.countryDefault)
   const handleChangeCountry = async (e: FormEvent) => {
 
     const input = e.target as HTMLFormElement
@@ -190,7 +190,7 @@ export function FormDate({ props }): ReactElement {
   // @ts-ignore
   const { state } = useContext(Context)
 
-  const [date, setDate] = useState(state['donation'][props.id] ?? null)
+  const [date, setDate] = useState(state['donation'][props.id] ?? new Date())
   const handleChangeDate = async (date) => {
     setDate(date)
     props.callback(props, date)
