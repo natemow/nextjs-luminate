@@ -2,7 +2,7 @@
   "organization":         "The Non-profit Organization",
 
   "headingTribute":       "Tributee Information",
-  "headingPaymentCard":   "Payment Information",
+  "headingPaymentCard":   "Billing Information",
   "headingPaymentPaypal": "Donor Information",
 
   "labelHeadline":        "<span>Donate to</span> {{organization}}",
@@ -29,6 +29,12 @@
   "labelPaymentButton":   "Donate {{amount}}",
   "labelCookie":          "Remember me",
 
+  "labelCard":            "Credit card number",
+  "labelCVV":             "CVV",
+  "labelExpMonth":        "Expiration",
+  "labelExpYear":         "Expiration year",
+
+  "labelEmail":           "Email address",
   "labelName":            "Recipient's full name",
   "labelFname":           "First name",
   "labelLname":           "Last name",

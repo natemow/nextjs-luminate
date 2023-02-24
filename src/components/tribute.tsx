@@ -252,7 +252,7 @@ export function Tribute(): ReactElement {
         <legend>{t('headingTribute')}</legend>
 
         <div className="tribute -border">
-          <div className="-inline">
+          <div className="-inline -tributee">
             <FormSelect props={{ id: 'tribute.type', label: t('labelTributeType'), callback: handleChangeTributee, className: '-offset-label', options: [
                 <option key="tribute" value="tribute">{t('optHonor')}</option>,
                 <option key="memorial" value="memorial">{t('optMemory')}</option>
@@ -273,12 +273,12 @@ export function Tribute(): ReactElement {
               <div className="ecards -inline">
                 {getECards()}
               </div>
-              <FormDate props={{ id: 'ecard.send_date', label: t('labelSendDate'), callback: handleChangeNotificationDate }} />
+              <FormDate props={{ id: 'ecard.send_date', label: t('labelSendDate'), callback: handleChangeNotificationDate, className: '-label-s' }} />
               <div className="-inline">
-                <FormText props={{ id: 'ecard.recipients', label: t('labelRecipient'), callback: handleChangeNotification }} />
-                <FormText props={{ id: 'ecard.subject', label: t('labelSubject'), callback: handleChangeNotification }} />
+                <FormText props={{ id: 'ecard.recipients', label: t('labelRecipient'), callback: handleChangeNotification, type: 'email', className: '-label-s' }} />
+                <FormText props={{ id: 'ecard.subject', label: t('labelSubject'), callback: handleChangeNotification, className: '-label-s' }} />
               </div>
-              <FormTextarea props={{ id: 'ecard.message', label: t('labelMessage'), callback: handleChangeNotification, maxlength: 250 }} />
+              <FormTextarea props={{ id: 'ecard.message', label: t('labelMessage'), callback: handleChangeNotification, maxlength: 250, className: '-label-s' }} />
               <FormCheckbox props={{ id: 'ecard.copy_sender', label: t('labelCopySender'), callback: handleChangeCopy, checked: copy }} />
 
               {/* Ecard preview. */}
@@ -323,10 +323,10 @@ export function Tribute(): ReactElement {
             {/* Mail notification. */}
             <section data-section="mail" data-toggle={notify !== 'mail'}>
               <FormAddress props={{ prefix: 'tribute.notify', callback: handleChangeNotification, nameCount: 1 }} />
-              <FormTextarea props={{ id: 'tribute.message.body', label: t('labelMessage'), callback: handleChangeNotification, maxlength: 250 }} />
+              <FormTextarea props={{ id: 'tribute.message.body', label: t('labelMessage'), callback: handleChangeNotification, maxlength: 250, className: '-label-s' }} />
               <div className="-inline">
-                <FormText props={{ id: 'tribute.message.closing', label: t('labelClosing'), callback: handleChangeNotification, placeholder: t('phClosing') }} />
-                <FormText props={{ id: 'tribute.message.signature', label: t('labelSignature'), callback: handleChangeNotification }} />
+                <FormText props={{ id: 'tribute.message.closing', label: t('labelClosing'), callback: handleChangeNotification, placeholder: t('phClosing'), className: '-label-s' }} />
+                <FormText props={{ id: 'tribute.message.signature', label: t('labelSignature'), callback: handleChangeNotification, className: '-label-s' }} />
               </div>
               <p className="help" dangerouslySetInnerHTML={{ __html: t('helpNotifyLimit') }}></p>
             </section>

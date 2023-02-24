@@ -2,7 +2,7 @@
   "organization":         "La Organización sin Fines de Lucro",
 
   "headingTribute":       "Información del tributario",
-  "headingPaymentCard":   "Información del pago",
+  "headingPaymentCard":   "Información de facturación",
   "headingPaymentPaypal": "Información del donante",
 
   "labelHeadline":        "<span>Donar a</span> {{organization}}",
@@ -29,6 +29,12 @@
   "labelPaymentButton":   "Donar {{amount}}",
   "labelCookie":          "Acuérdate de mí",
 
+  "labelCard":            "Número de Tarjeta de Crédito",
+  "labelCVV":             "CVV",
+  "labelExpMonth":        "Vencimiento",
+  "labelExpYear":         "Año de caducidad",
+
+  "labelEmail":           "Dirección de correo electrónico",
   "labelName":            "Nombre completo del destinatario",
   "labelFname":           "Nombre de pila",
   "labelLname":           "Apellido",

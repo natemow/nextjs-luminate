@@ -6,7 +6,36 @@
   }
 
   &.-border {
-    padding-top: $spacing-y;
-    margin: 0 0 $spacing-y 0;
+    padding-top: 2em;
+    margin-bottom: $spacing-y;
   }
+
+  [data-section='card'] {
+    margin-top: 1em;
+    padding-top: $spacing-y;
+    padding-bottom: 0;
+    border-top: var(--input-border);
+
+    .-cc-number input {
+      background: url('images/cc-number.png') no-repeat 100% 0 var(--input-bg);
+      background-size: auto 40px;
+    }
+
+    .-cc-cvv input {
+      background: url('images/cc-cvv.png') no-repeat 100% 0 var(--input-bg);
+      background-size: auto 40px;
+    }
+
+    .-expiration {
+
+      .input {
+        margin-right: 0;
+      }
+
+      .-offset-label {
+        margin-left: -.5em;
+      }
+    }
+  }
+
 }

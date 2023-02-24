@@ -5,6 +5,12 @@
 
 .tribute {
   padding-top: $spacing-y;
+
+  .-tributee {
+    padding-bottom: ($spacing-y / 3);
+    border-bottom: var(--input-border);
+    margin-bottom: $spacing-y;
+  }
 }
 
 .notify {
@@ -15,7 +21,7 @@
   }
 
   .ecards {
-    margin: 1.5em 0 0 0;
+    margin: $spacing-y 0 0 0;
   }
 
   .ecard {

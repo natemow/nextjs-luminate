@@ -16,7 +16,8 @@ export function ContextProvider({ children }) {
     donation: {
       form_id: Forms.once.standard,
       level_id: null,
-      remember_me: false
+      remember_me: true,
+      'donor.email_opt_in': true
     },
     meta: {
       debug: false,

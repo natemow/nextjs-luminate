@@ -44,7 +44,7 @@ export function FormText({ props }): ReactElement {
   return (
     <div className={'input -text' + (props.className ? ' ' + props.className : '')}>
       <label htmlFor={props.id}>{props.label}</label>
-      <input onInput={props.callback} name={props.id} defaultValue={props.defaultValue ?? null} id={props.id} type="text" placeholder={props.placeholder ?? null} />
+      <input onInput={props.callback} name={props.id} defaultValue={props.defaultValue ?? null} id={props.id} type={props.type ?? 'text'} placeholder={props.placeholder ?? null} maxLength={props.maxlength ?? null} />
     </div>
   )
 }
@@ -122,11 +122,11 @@ export function FormAddress({ props }): ReactElement {
   // Toggle full or first/last name fields.
   const getName = () => {
     if (props.nameCount === 1) {
-      return <FormText props={{ id: props.prefix + '.name.full', label: t('labelName'), callback: props.callback }} />
+      return <FormText props={{ id: props.prefix + '.name.full', label: t('labelName'), callback: props.callback, className: '-label-s' }} />
     } else {
       return (<>
-        <FormText props={{ id: props.prefix + '.name.first', label: t('labelFname'), callback: props.callback }} />
-        <FormText props={{ id: props.prefix + '.name.last', label: t('labelLname'), callback: props.callback }} />
+        <FormText props={{ id: props.prefix + '.name.first', label: t('labelFname'), callback: props.callback, className: '-label-s' }} />
+        <FormText props={{ id: props.prefix + '.name.last', label: t('labelLname'), callback: props.callback, className: '-label-s' }} />
       </>)
     }
   }
@@ -168,16 +168,16 @@ export function FormAddress({ props }): ReactElement {
         {getName()}
       </div>
       <div className="-inline">
-        <FormText props={{ id: props.prefix + '.address.street1', label: t('labelAddr1'), callback: props.callback }} />
-        <FormText props={{ id: props.prefix + '.address.street2', label: t('labelAddr2'), callback: props.callback, className: '-offset-label' }} />
+        <FormText props={{ id: props.prefix + '.address.street1', label: t('labelAddr1'), callback: props.callback, className: '-label-s' }} />
+        <FormText props={{ id: props.prefix + '.address.street2', label: t('labelAddr2'), callback: props.callback, className: '-offset-label -label-s' }} />
       </div>
       <div className="-inline">
-        <FormText props={{ id: props.prefix + '.address.city', label: t('labelAddrCity'), callback: props.callback }} />
-        <FormSelect props={{ id: props.prefix + '.address.state', label: t('labelAddrState'), callback: props.callback, options: optionsState, defaultValue: province }} />
+        <FormText props={{ id: props.prefix + '.address.city', label: t('labelAddrCity'), callback: props.callback, className: '-label-s' }} />
+        <FormSelect props={{ id: props.prefix + '.address.state', label: t('labelAddrState'), callback: props.callback, options: optionsState, defaultValue: province, className: '-label-s' }} />
       </div>
       <div className="-inline">
-        <FormText props={{ id: props.prefix + '.address.zip', label: t('labelAddrZip'), callback: props.callback }} />
-        <FormSelect props={{ id: props.prefix + '.address.country', label: t('labelAddrCountry'), callback: handleChangeCountry, options: optionsCountry, defaultValue: country }} />
+        <FormText props={{ id: props.prefix + '.address.zip', label: t('labelAddrZip'), callback: props.callback, className: '-label-s' }} />
+        <FormSelect props={{ id: props.prefix + '.address.country', label: t('labelAddrCountry'), callback: handleChangeCountry, options: optionsCountry, defaultValue: country, className: '-label-s' }} />
       </div>
     </>
   )

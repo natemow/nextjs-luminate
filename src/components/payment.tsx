@@ -3,7 +3,7 @@ import { FormEvent, ReactElement, useContext, useState } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { API, config, formatCurrency, getProcessingFee} from '@/lib/utility';
 import { Context } from '@/components/context'
-import { FormCheckbox, FormRadio, FormAddress } from '@/components/form'
+import {FormCheckbox, FormRadio, FormAddress, FormText, FormSelect} from '@/components/form'
 
 export function Payment(): ReactElement {
 
@@ -20,6 +20,7 @@ export function Payment(): ReactElement {
 
     const update = getStateUpdate()
     update.donation.remember_me = cookie
+    update.donation['donor.email_opt_in'] = cookie
 
     setState(update)
   }
@@ -107,6 +108,27 @@ export function Payment(): ReactElement {
     // })
   }
 
+  // Build options.
+  const optionsMonth = () => {
+    const options = [<option key={'expMM00'}></option>]
+    for (let i = 1; i <= 12; i++) {
+      const value = i.toString().padStart(2, '0')
+      options.push(<option key={'expMM' + value} value={value}>{value}</option>)
+    }
+
+    return options
+  }
+
+  const optionsYear = () => {
+    const start = parseInt(new Date().toLocaleDateString('en-us', { year:'numeric' })),
+          options = [<option key={'expYY00'}></option>]
+    for (let i = start; i <= (start + 10); i++) {
+      const value = i.toString().padStart(2, '0')
+      options.push(<option key={'expYY' + value} value={value}>{value}</option>)
+    }
+
+    return options
+  }
 
   // Set display amount and disabled state.
   const heading = t(`headingPayment${method === 'card' ? 'Card' : 'Paypal'}`),
@@ -124,7 +146,19 @@ export function Payment(): ReactElement {
 
       <fieldset data-section="payment" data-toggle={disabled} className="-border">
         <legend>{heading}</legend>
+        <FormText props={{ id: 'donor.email', label: t('labelEmail'), callback: handleChangeBilling, type: 'email', className: '-label-s' }} />
         <FormAddress props={{ prefix: 'billing', callback: handleChangeBilling }} />
+
+        <section data-section="card" data-toggle={method !== 'card'}>
+          <div className="-inline">
+            <FormText props={{ id: 'card_number', label: t('labelCard'), callback: handleChangeBilling, className: '-cc-number', maxlength: 25 }} />
+            <FormText props={{ id: 'card_cvv', label: t('labelCVV'), callback: handleChangeBilling, className: '-cc-cvv', maxlength: 4 }} />
+          </div>
+          <div className="-inline -expiration">
+            <FormSelect props={{ id: 'card_exp_date_month', label: t('labelExpMonth'), callback: handleChangeBilling, options: optionsMonth() }} />
+            <FormSelect props={{ id: 'card_exp_date_year', label: t('labelExpYear'), callback: handleChangeBilling, options: optionsYear(), className: '-offset-label' }} />
+          </div>
+        </section>
       </fieldset>
 
       <section data-section="cookie" data-toggle={disabled}>
